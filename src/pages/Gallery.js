@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from '../components/Card';
 import './Gallery.scss';
+import { ThemeContext } from '../ThemeContext'
 
 export const Gallery = () => {
   const url = 'https://rickandmortyapi.com/api/character';
@@ -9,6 +10,8 @@ export const Gallery = () => {
   useEffect(() => {
     fetchCharacters();
   }, []);
+
+  const { toggle } = React.useContext(ThemeContext);
 
   const fetchCharacters = async () => {
     const resp = await fetch(url);
@@ -28,8 +31,8 @@ export const Gallery = () => {
 
   return (
     <>
-      <div className='gallery'>
-        <h1>Rick and morty</h1>
+      <div className='gallery' style={toggle ? { background: "black" } : {}}>
+        <h1 style={toggle ? { color: "white" } : {}}>Rick and morty</h1>
         <div className='gallery-card-container'>
           {characters.map((elm, index) => (
             <Card
